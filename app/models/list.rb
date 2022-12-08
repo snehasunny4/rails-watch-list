@@ -9,6 +9,6 @@
 #
 class List < ApplicationRecord
   validates :name, uniqueness: true, presence: true
-  has_many :bookmarks, dependent: :destroy # If a movie is deleted in the Bookmark, then the parent would also be deleted. 
+  has_many :bookmarks, dependent: :destroy # If a movie is deleted in the Bookmark, then the parent would also be deleted.
   has_many :movies, through: :bookmarks
 end

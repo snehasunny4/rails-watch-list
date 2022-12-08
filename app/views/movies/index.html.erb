@@ -1,0 +1,4 @@
+<h1 style="margin-bottom: 20px">Movies</h1>
+<% @movies.each do |m| %>
+  <h4><%= link_to @title = m.title, movie_path(m.id) %></h4>
+<% end %>
