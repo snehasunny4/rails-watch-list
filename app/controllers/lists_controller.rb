@@ -3,7 +3,7 @@ class ListsController < ApplicationController
     @lists = List.all
   end
 
-  def method_name
-    
+  def show
+    @lists = List.find(params[:id])
   end
 end
