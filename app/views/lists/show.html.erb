@@ -1,4 +1,6 @@
 <h1>Listing all the movies</h1>
-  <%= @list.movies.each do |movie| %>
+<%= @list.movies.each do |movie| %>
+<%= bookmark = Bookmark.find_by(list: @list, movie: movie) %>
     <%= movie.title %>
-  <% end %>
+<% end %>
+<%= link_to "Add a new movie",  new_list_bookmark_path(:list_id) %>

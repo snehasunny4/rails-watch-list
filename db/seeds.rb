@@ -1,14 +1,20 @@
+require "open-uri"
+require "json"
+
 5.times do
-  movie = Movie.create(
-    title: Faker::Movie.title,
-    overview: Faker::Movie.quote,
-    rating: Faker::Number.between(from: 0.0, to: 10.0).round(2)
-  )
+  movies_serialized = URI.open("http://tmdb.lewagon.com/movie/top_rated?").read
+  movies = JSON.parse(movies_serialized)['results']
+    movies.each do |movie|
+      Movie.create(
+        title: movie["original_title"],
+        overview: movie["overview"],
+        poster_url: movie["poster_path"],
+        rating: movie["vote_average"]
+      )
+    end
 end
 
-list = {
-  List.create(name: "Horror"),
-  List.create(name: "Family"),
-  List.create(name: "Comedy"),
-  List.create(name: "Favorites")
-}
+
+
+List.create(name: 'Favorites')
+List.create(name: "Comedy")
