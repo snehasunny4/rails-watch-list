@@ -1,6 +1,18 @@
-<h1>Listing all the movies</h1>
-<%= @list.movies.each do |movie| %>
-<%= bookmark = Bookmark.find_by(list: @list, movie: movie) %>
-    <%= movie.title %>
+<h1> Your <%= @list.name %></h1>
+<% @bookmarks.each do |b| %>
+    <ul class="mb-2">
+    <%= b.movie.title %>
+    <p>
+    <%= b.movie.overview %>
+    </p>
+    Comment: <%= b.comment %>
+    <p>
+    <%#= link_to 'Delete', bookmark_path(b), data: { method: :delete, confirm: "Are you sure you want to delete?"} %>
+    <%= button_to "Delete", bookmark_path(b), data: { confirm: "Are you sure?" }, method: :delete %>
+    </p>
+    </ul>
 <% end %>
-<%= link_to "Add a new movie",  new_list_bookmark_path(:list_id) %>
+
+<%= link_to "Add a new movie",  new_list_bookmark_path(@list) %>
+<%# Here you are always passing an instance when linking from one page to another %>
+<%= link_to "Back to the main list", lists_path%>
