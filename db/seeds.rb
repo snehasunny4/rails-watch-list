@@ -1,6 +1,8 @@
 require "open-uri"
 require "json"
 
+Movie.destroy_all
+
 5.times do
   movies_serialized = URI.open("http://tmdb.lewagon.com/movie/top_rated?").read
   movies = JSON.parse(movies_serialized)['results']
@@ -8,13 +10,11 @@ require "json"
       Movie.create(
         title: movie["original_title"],
         overview: movie["overview"],
-        poster_url: movie["poster_path"],
+        poster_url: "https://image.tmdb.org/t/p/w500#{movie['poster_path']}",
         rating: movie["vote_average"]
       )
     end
 end
 
-
-
-List.create(name: 'Favorites')
-List.create(name: "Comedy")
+# List.create(name: 'Favorites')
+# List.create(name: "Comedy")

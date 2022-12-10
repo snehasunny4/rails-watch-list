@@ -1,18 +1,29 @@
-<h1> Your <%= @list.name %></h1>
-<% @bookmarks.each do |b| %>
-    <ul class="mb-2">
-    <%= b.movie.title %>
-    <p>
-    <%= b.movie.overview %>
-    </p>
-    Comment: <%= b.comment %>
-    <p>
-    <%#= link_to 'Delete', bookmark_path(b), data: { method: :delete, confirm: "Are you sure you want to delete?"} %>
-    <%= button_to "Delete", bookmark_path(b), data: { confirm: "Are you sure?" }, method: :delete %>
-    </p>
-    </ul>
-<% end %>
+<div class="container">
+  <h1 class="text-center">Your <%= @list.name %></h1>
+    <% @bookmarks.each do |b| %>
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <%= image_tag b.movie.poster_url %>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title fw-bold"><%= b.movie.title %></h5>
+              <p class="card-text fst-italic"><%= b.movie.overview %></p>
+              <div class="d-flex justify-content-between">
+              <p class="fw-bold"><small class="text-muted"> Comment: <%= b.comment %></p>
+              <button type="button" class="btn btn-dark btn-sm">Delete<%= button_to "Delete", bookmark_path(b), data: { confirm: "Are you sure?" }, method: :delete, class: "text-decoration-none text-white"%></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
-<%= link_to "Add a new movie",  new_list_bookmark_path(@list) %>
+
 <%# Here you are always passing an instance when linking from one page to another %>
-<%= link_to "Back to the main list", lists_path%>
+  <div class="mx-2 d-inline-flex flex-row gap-3 ">
+  <button type="button" class="btn btn-dark"><%= link_to "Add a new movie",  new_list_bookmark_path(@list), class: "text-decoration-none text-white"%></button>
+  <button type="button" class="btn btn-dark"><%= link_to "Back to the main list", lists_path, class: "text-decoration-none text-white"%></button>
+  </div>
+</div>
